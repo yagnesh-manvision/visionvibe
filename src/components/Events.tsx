@@ -1,31 +1,49 @@
-import { pastEvents, primarySocial, upcomingEvents, type EventItem } from '../config/site'
+import { eventPath, events, type EventDetails } from '../config/events'
+import { eventDay, eventMonthYear, eventTime } from '../lib/eventDates'
 import { Reveal } from './ui/Reveal'
 import { SectionHeading } from './ui/SectionHeading'
-import { ArrowUpRightIcon, PinIcon } from './ui/Icons'
+import { Photo } from './ui/Photo'
 import { Button } from './ui/Button'
+import { PinIcon } from './ui/Icons'
 
-const fmt = (iso: string, opts: Intl.DateTimeFormatOptions) =>
-  new Date(`${iso}T12:00:00`).toLocaleDateString('en-AU', opts)
-
-function UpcomingCard({ e, i }: { e: EventItem; i: number }) {
+function FeaturedEvent({ e }: { e: EventDetails }) {
+  const href = eventPath(e.slug)
   return (
-    <Reveal className="event-card" delay={i * 100}>
-      <a href={e.url ?? primarySocial.url} target="_blank" rel="noopener noreferrer" className="event-card__link">
-        <div className="event-card__date">
-          <span className="event-card__day">{fmt(e.date, { day: '2-digit' })}</span>
-          <span className="event-card__month">{fmt(e.date, { month: 'short', year: 'numeric' })}</span>
-        </div>
-        <div className="event-card__info">
-          <span className="event-card__cat">{e.category}</span>
-          <h3>{e.title}</h3>
-          <span className="event-card__venue">
-            <PinIcon width={15} height={15} /> {e.venue}
-          </span>
-        </div>
-        <span className="event-card__cta">
-          Details <ArrowUpRightIcon width={16} height={16} />
-        </span>
+    <Reveal className="featured-event">
+      <a href={href} className="featured-event__media" tabIndex={-1} aria-hidden="true">
+        <Photo photo={e.image} sizes="(max-width: 960px) 95vw, 55vw" />
+        {e.badge && <span className="featured-event__badge">{e.badge}</span>}
       </a>
+
+      <div className="featured-event__body">
+        <div className="featured-event__date">
+          <span className="featured-event__day">{eventDay(e)}</span>
+          <span className="featured-event__month">{eventMonthYear(e)}</span>
+        </div>
+
+        <span className="featured-event__cat">{e.category}</span>
+        <h3 className="featured-event__title">
+          <a href={href}>{e.title}</a>
+        </h3>
+        <p className="featured-event__subtitle">{e.subtitle}</p>
+
+        <ul className="featured-event__meta">
+          <li>
+            <PinIcon width={16} height={16} /> {e.venue}, {e.city}
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v5l3 2" />
+            </svg>
+            Show starts {eventTime(e.start, e)} · Doors {e.doorsOpen}
+          </li>
+        </ul>
+
+        <Button href={href} arrow className="featured-event__cta">
+          View Details
+        </Button>
+      </div>
     </Reveal>
   )
 }
@@ -41,34 +59,13 @@ export function Events() {
               What’s <em className="gold-text">next</em> on stage.
             </>
           }
-          intro={`Announcements land first on our socials — follow along so you never miss a night.`}
+          intro="Our debut production is almost here. Explore the full details below — and follow our socials for ticket announcements."
         />
 
-        <div className="events__upcoming">
-          {upcomingEvents.map((e, i) => (
-            <UpcomingCard key={e.title} e={e} i={i} />
+        <div className="events__list">
+          {events.map((e) => (
+            <FeaturedEvent key={e.slug} e={e} />
           ))}
-        </div>
-
-        <div className="events__past">
-          <Reveal as="h3" className="events__past-title">
-            Past Events
-          </Reveal>
-          <ul>
-            {pastEvents.map((e, i) => (
-              <Reveal as="li" key={e.title} delay={i * 70}>
-                <span className="events__past-date">{fmt(e.date, { month: 'short', year: 'numeric' })}</span>
-                <span className="events__past-name">{e.title}</span>
-                <span className="events__past-cat">{e.category}</span>
-                <span className="events__past-venue">{e.venue}</span>
-              </Reveal>
-            ))}
-          </ul>
-          <Reveal className="events__more">
-            <Button href="#gallery" variant="ghost" arrow>
-              Relive the highlights
-            </Button>
-          </Reveal>
         </div>
       </div>
     </section>

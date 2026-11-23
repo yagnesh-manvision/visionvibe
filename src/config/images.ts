@@ -34,5 +34,6 @@ export const photos = {
   phoneCrowd: { id: '1501281668745-f7f57925c3b4', alt: 'Concert-goer filming the stage on their phone' },
   bigStage: { id: '1459749411175-04bf5292ceea', alt: 'Huge crowd facing a golden-lit festival stage' },
   beams: { id: '1522158637959-30385a09e0da', alt: 'Light beams sweeping over a dancing crowd' },
+  singerSmoke: { id: '1493225457124-a3eb161ffa5f', alt: 'Performer with arms raised through stage smoke' },
   drinks: { id: '1485872299829-c673f5194813', alt: 'Friends clinking cocktails at a night event' },
 } satisfies Record<string, Photo>

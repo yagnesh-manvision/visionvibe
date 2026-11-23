@@ -4,7 +4,7 @@ import { Reveal } from './ui/Reveal'
 import { SectionHeading } from './ui/SectionHeading'
 
 const items: { photo: PhotoT; caption: string; tag: string; size: string }[] = [
-  { photo: photos.bigStage, caption: 'The main stage', tag: 'Concert', size: 'xl' },
+  { photo: photos.singerSmoke, caption: 'Lost in the music', tag: 'Concert', size: 'xl' },
   { photo: photos.confettiBlast, caption: 'Confetti o’clock', tag: 'Festival', size: 'tall' },
   { photo: photos.drinks, caption: 'Cheers to tonight', tag: 'Soirée', size: 'sq' },
   { photo: photos.phoneCrowd, caption: 'Front row energy', tag: 'Live Music', size: 'sq' },
@@ -29,10 +29,10 @@ export function Gallery() {
           align="center"
           title={
             <>
-              Moments we <em className="gold-text">made</em> together.
+              Moments worth <em className="gold-text">remembering.</em>
             </>
           }
-          intro="A glimpse into the nights, the crowds and the atmosphere behind VisionVibe."
+          intro="A glimpse of the energy, the crowds and the atmosphere we bring to every VisionVibe stage."
         />
 
         <div className="gallery__grid">

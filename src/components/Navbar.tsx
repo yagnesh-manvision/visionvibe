@@ -32,9 +32,10 @@ function useActiveSection(ids: readonly string[]) {
 
 const sectionIds = navLinks.map((l) => l.id)
 
-export function Navbar() {
+export function Navbar({ current }: { current?: string }) {
   const scrolled = useScrolled()
-  const active = useActiveSection(sectionIds)
+  const spied = useActiveSection(sectionIds)
+  const active = current ?? spied
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
