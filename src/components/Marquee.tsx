@@ -1,4 +1,4 @@
-const items = ['Live Music', 'DJ Nights', 'Cultural Celebrations', 'Private Events', 'Concerts', 'Festivals', 'Galas']
+const items = ['Iconic Artists', 'Live Concerts', 'Unforgettable Nights', 'Cultural Celebrations', 'Community First', 'Sydney', 'Melbourne']
 
 export function Marquee() {
   const row = (hidden?: boolean) => (

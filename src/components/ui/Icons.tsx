@@ -25,6 +25,12 @@ export const YoutubeIcon = (p: P) => (
   </svg>
 )
 
+export const TiktokIcon = (p: P) => (
+  <svg {...base(p)} fill="currentColor">
+    <path d="M16.6 3h-3.1v12.2a2.7 2.7 0 1 1-2.7-2.7c.3 0 .6 0 .8.1V9.4a5.9 5.9 0 1 0 5 5.8V9.1a7.6 7.6 0 0 0 4.4 1.4V7.4a4.4 4.4 0 0 1-4.4-4.4Z" />
+  </svg>
+)
+
 export const ArrowIcon = (p: P) => (
   <svg {...base(p)} fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
     <path d="M5 12h14M13 6l6 6-6 6" />
@@ -51,7 +57,36 @@ export const PinIcon = (p: P) => (
   </svg>
 )
 
+export const PhoneIcon = (p: P) => (
+  <svg {...base(p)} fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M5 4h3.5l1.6 4-2.2 1.4a11 11 0 0 0 5.7 5.7l1.4-2.2 4 1.6V18a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z" />
+  </svg>
+)
+
+export const MicIcon = (p: P) => (
+  <svg {...base(p)} fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+    <rect x="9" y="3" width="6" height="11" rx="3" />
+    <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" />
+  </svg>
+)
+
+export const SparkIcon = (p: P) => (
+  <svg {...base(p)} fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8" />
+    <circle cx="12" cy="12" r="2" />
+  </svg>
+)
+
+export const PeopleIcon = (p: P) => (
+  <svg {...base(p)} fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="9" cy="8" r="3.2" />
+    <path d="M3 20a6 6 0 0 1 12 0" />
+    <circle cx="17" cy="9" r="2.6" />
+    <path d="M16 14.2a5 5 0 0 1 5.5 5.8" />
+  </svg>
+)
+
 export const SocialIcon = ({ name, ...p }: P & { name: SocialKey }) => {
-  const Icon = { instagram: InstagramIcon, facebook: FacebookIcon, youtube: YoutubeIcon }[name]
+  const Icon = { instagram: InstagramIcon, facebook: FacebookIcon, youtube: YoutubeIcon, tiktok: TiktokIcon }[name]
   return <Icon {...p} />
 }

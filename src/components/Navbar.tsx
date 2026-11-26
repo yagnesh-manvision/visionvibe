@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { navLinks, primarySocial, social } from '../config/site'
+import { navLinks, pagePath, primarySocial, social, type PageId } from '../config/site'
 import { LogoLockup } from './ui/Logo'
 import { InstagramIcon, SocialIcon } from './ui/Icons'
 
@@ -14,28 +14,8 @@ function useScrolled(offset = 40) {
   return scrolled
 }
 
-function useActiveSection(ids: readonly string[]) {
-  const [active, setActive] = useState(ids[0])
-  useEffect(() => {
-    const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[]
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => e.isIntersecting && setActive(e.target.id))
-      },
-      { rootMargin: '-45% 0px -50% 0px' },
-    )
-    els.forEach((el) => io.observe(el))
-    return () => io.disconnect()
-  }, [ids])
-  return active
-}
-
-const sectionIds = navLinks.map((l) => l.id)
-
-export function Navbar({ current }: { current?: string }) {
+export function Navbar({ current }: { current: PageId }) {
   const scrolled = useScrolled()
-  const spied = useActiveSection(sectionIds)
-  const active = current ?? spied
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -48,13 +28,18 @@ export function Navbar({ current }: { current?: string }) {
   return (
     <header className={`nav ${scrolled ? 'nav--scrolled' : ''} ${open ? 'nav--open' : ''}`}>
       <div className="nav__inner container">
-        <a href="#home" className="nav__brand" aria-label="VisionVibe Productions — home" onClick={() => setOpen(false)}>
+        <a href={pagePath('home')} className="nav__brand" aria-label="VisionVibe Productions — home" onClick={() => setOpen(false)}>
           <LogoLockup />
         </a>
 
         <nav className="nav__links" aria-label="Primary">
           {navLinks.map((l) => (
-            <a key={l.id} href={`#${l.id}`} className={active === l.id ? 'is-active' : ''}>
+            <a
+              key={l.id}
+              href={pagePath(l.id)}
+              className={current === l.id ? 'is-active' : ''}
+              aria-current={current === l.id ? 'page' : undefined}
+            >
               {l.label}
             </a>
           ))}
@@ -87,7 +72,8 @@ export function Navbar({ current }: { current?: string }) {
           {navLinks.map((l, i) => (
             <a
               key={l.id}
-              href={`#${l.id}`}
+              href={pagePath(l.id)}
+              aria-current={current === l.id ? 'page' : undefined}
               onClick={() => setOpen(false)}
               style={{ transitionDelay: open ? `${120 + i * 60}ms` : '0ms' }}
               tabIndex={open ? 0 : -1}

@@ -1,6 +1,6 @@
-import { contact, navLinks, social } from '../config/site'
+import { contact, navLinks, pagePath, social } from '../config/site'
 import { LogoFull } from './ui/Logo'
-import { SocialIcon } from './ui/Icons'
+import { MailIcon, PhoneIcon, PinIcon, SocialIcon } from './ui/Icons'
 
 const year = new Date().getFullYear()
 
@@ -9,16 +9,30 @@ export function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="footer__top">
-          <a href="#home" className="footer__logo" aria-label="Back to top">
+          <a href={pagePath('home')} className="footer__logo" aria-label="VisionVibe Productions — home">
             <LogoFull width={220} />
           </a>
           <p className="footer__tagline">Where every moment becomes a memory.</p>
+          <p className="footer__subline">
+            Entertainment <i>•</i> Experiences <i>•</i> Productions
+          </p>
+          <address className="footer__contact">
+            <a href={`mailto:${contact.email}`}>
+              <MailIcon width={16} height={16} /> {contact.email}
+            </a>
+            <a href={contact.phoneHref}>
+              <PhoneIcon width={16} height={16} /> {contact.phone}
+            </a>
+            <span>
+              <PinIcon width={16} height={16} /> {contact.address}
+            </span>
+          </address>
         </div>
 
         <div className="footer__row">
           <nav className="footer__nav" aria-label="Footer">
             {navLinks.map((l) => (
-              <a key={l.id} href={`#${l.id}`}>
+              <a key={l.id} href={pagePath(l.id)}>
                 {l.label}
               </a>
             ))}
@@ -34,7 +48,7 @@ export function Footer() {
 
         <div className="footer__bottom">
           <span>© {year} VisionVibe Productions. All rights reserved.</span>
-          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          <span>visionvibe.com.au</span>
         </div>
       </div>
     </footer>
